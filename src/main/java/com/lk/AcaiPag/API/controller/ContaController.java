@@ -1,8 +1,10 @@
 package com.lk.AcaiPag.API.controller;
 
 import com.lk.AcaiPag.API.dto.ContaDTO;
+import com.lk.AcaiPag.API.dto.UpdateSaldoDTO;
 import com.lk.AcaiPag.API.model.Conta;
 import com.lk.AcaiPag.API.service.ContaService;
+import jakarta.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +29,7 @@ public class ContaController {
   private ContaService contaService;
 
   @PostMapping("/add")
-  public ResponseEntity<ContaDTO> addConta(@RequestBody ContaDTO newContaDto) {
+  public ResponseEntity<ContaDTO> addConta(@RequestBody @Valid ContaDTO newContaDto) {
     ContaDTO contaDto = contaService.addConta(newContaDto);
     return new ResponseEntity<>(contaDto, HttpStatus.CREATED);
   }
@@ -47,8 +49,8 @@ public class ContaController {
   }
 
   @PatchMapping("/updateSaldo/{id}")
-  public ResponseEntity<ContaDTO> updateConta(@PathVariable Long id, @RequestBody Map<String, BigDecimal> body) {
-    BigDecimal novoValor = body.get("valor");
+  public ResponseEntity<ContaDTO> updateConta(@PathVariable Long id, @Valid @RequestBody UpdateSaldoDTO body) {
+    BigDecimal novoValor = body.getValor();
     ContaDTO contaDto = contaService.updateValor(id, novoValor);
 
     return new ResponseEntity<>(contaDto, HttpStatus.OK);

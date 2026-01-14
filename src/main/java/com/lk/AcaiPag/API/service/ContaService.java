@@ -1,12 +1,12 @@
 package com.lk.AcaiPag.API.service;
 
 import com.lk.AcaiPag.API.dto.ContaDTO;
+import com.lk.AcaiPag.API.exception.ContaNotFoundException;
 import com.lk.AcaiPag.API.model.Conta;
 import com.lk.AcaiPag.API.repository.ContaRepository;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +26,9 @@ public class ContaService {
   }
 
   public ContaDTO getContaById(Long id) {
-    Conta conta = this.contaRepository.findById(id).get();
+    Conta conta = this.contaRepository.findById(id)
+        .orElseThrow(() -> new ContaNotFoundException());
+
     ContaDTO contaDTO = new ContaDTO(conta);
     return contaDTO;
   }
@@ -42,7 +44,9 @@ public class ContaService {
 
   @Transactional
   public ContaDTO updateValor(Long id, BigDecimal novoValor) {
-    Conta conta = contaRepository.findById(id).get();
+    Conta conta = contaRepository.findById(id)
+        .orElseThrow(() -> new ContaNotFoundException());
+
     conta.setValor(novoValor);
     contaRepository.save(conta);
 
@@ -51,7 +55,10 @@ public class ContaService {
 
   @Transactional
   public void deleteContaById(Long id) {
-    contaRepository.deleteById(id);
+    Conta conta = contaRepository.findById(id)
+        .orElseThrow(() -> new ContaNotFoundException());
+
+    contaRepository.deleteById(conta.getId());
   }
 
 

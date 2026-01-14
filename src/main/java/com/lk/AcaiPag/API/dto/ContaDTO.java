@@ -1,9 +1,10 @@
 package com.lk.AcaiPag.API.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.lk.AcaiPag.API.model.Conta;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,9 +16,15 @@ import lombok.Setter;
 public class ContaDTO {
 
   private Long id;
+
+  @NotBlank
   private String titular;
+
+  @NotNull
+  @PositiveOrZero
   private BigDecimal valor;
 
+  @NotBlank
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private String senha;
 
