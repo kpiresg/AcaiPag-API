@@ -2,6 +2,7 @@ package com.lk.AcaiPag.API.service;
 
 import com.lk.AcaiPag.API.model.Conta;
 import com.lk.AcaiPag.API.repository.ContaRepository;
+import java.math.BigDecimal;
 import java.util.List;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,10 @@ public class ContaService {
     return contaRepository.findAll();
   }
 
-  public Conta updateConta(Conta conta) {
+  public Conta updateValor(Long id, BigDecimal novoValor) {
+    Conta conta = contaRepository.findById(id).get();
+    conta.setValor(novoValor);
+
     return contaRepository.save(conta);
   }
 
