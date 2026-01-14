@@ -4,6 +4,7 @@ import com.lk.AcaiPag.API.model.Conta;
 import com.lk.AcaiPag.API.service.ContaService;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +38,9 @@ public class ContaController {
   }
 
   @PatchMapping("/updateSaldo/{id}")
-  public Conta updateConta(@PathVariable Long id, @RequestBody BigDecimal novoValor) {
+  public Conta updateConta(@PathVariable Long id, @RequestBody Map<String, BigDecimal> body) {
+    BigDecimal novoValor = body.get("valor");
+
     return contaService.updateValor(id, novoValor);
   }
 

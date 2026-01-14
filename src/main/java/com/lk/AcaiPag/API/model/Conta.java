@@ -25,4 +25,6 @@ public class Conta {
   private String titular;
 
   private BigDecimal valor;
+
+  private String senha;
 }
