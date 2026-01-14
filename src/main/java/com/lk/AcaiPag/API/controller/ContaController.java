@@ -1,11 +1,15 @@
 package com.lk.AcaiPag.API.controller;
 
+import com.lk.AcaiPag.API.dto.ContaDTO;
 import com.lk.AcaiPag.API.model.Conta;
 import com.lk.AcaiPag.API.service.ContaService;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -23,25 +27,31 @@ public class ContaController {
   private ContaService contaService;
 
   @PostMapping("/add")
-  public Conta addConta(@RequestBody Conta conta) {
-    return contaService.addConta(conta);
+  public ResponseEntity<ContaDTO> addConta(@RequestBody ContaDTO newContaDto) {
+    ContaDTO contaDto = contaService.addConta(newContaDto);
+    return new ResponseEntity<>(contaDto, HttpStatus.CREATED);
   }
 
   @GetMapping("/get/{id}")
-  public Conta getContaById(@PathVariable Long id) {
-    return contaService.getContaById(id);
+  public ResponseEntity<ContaDTO> getContaById(@PathVariable Long id) {
+    ContaDTO contaDto = contaService.getContaById(id);
+
+    return new ResponseEntity<>(contaDto, HttpStatus.OK);
   }
 
   @GetMapping("/getAll")
-  public List getAll() {
-    return contaService.getAll();
+  public ResponseEntity<List> getAll() {
+    List<ContaDTO> listContaDto = contaService.getAll();
+
+    return new ResponseEntity<>(listContaDto, HttpStatus.OK);
   }
 
   @PatchMapping("/updateSaldo/{id}")
-  public Conta updateConta(@PathVariable Long id, @RequestBody Map<String, BigDecimal> body) {
+  public ResponseEntity<ContaDTO> updateConta(@PathVariable Long id, @RequestBody Map<String, BigDecimal> body) {
     BigDecimal novoValor = body.get("valor");
+    ContaDTO contaDto = contaService.updateValor(id, novoValor);
 
-    return contaService.updateValor(id, novoValor);
+    return new ResponseEntity<>(contaDto, HttpStatus.OK);
   }
 
   @DeleteMapping("/delete/{id}")

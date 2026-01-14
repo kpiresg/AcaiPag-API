@@ -1,4 +1,4 @@
-INSERT INTO tb_conta (titular, valor) VALUES ('Kauan Pires', 100.00005)
-INSERT INTO tb_conta (titular, valor) VALUES ('Laura Assis', 200.90)
-INSERT INTO tb_conta (titular, valor) VALUES ('Tamires', 5000)
-INSERT INTO tb_conta (titular, valor) VALUES ('Laura Assis', 10000.50)
+INSERT INTO tb_conta (titular, valor, senha) VALUES ('Kauan Pires', 100.00005, '123')
+INSERT INTO tb_conta (titular, valor, senha) VALUES ('Laura Assis', 200.90, '654')
+INSERT INTO tb_conta (titular, valor, senha) VALUES ('Tamires', 5000, '987')
+INSERT INTO tb_conta (titular, valor, senha) VALUES ('Guilherme Gomes', 10000.50, '345')

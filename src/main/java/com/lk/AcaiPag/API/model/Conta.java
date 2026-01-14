@@ -1,11 +1,13 @@
 package com.lk.AcaiPag.API.model;
 
+import com.lk.AcaiPag.API.dto.ContaDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,4 +29,10 @@ public class Conta {
   private BigDecimal valor;
 
   private String senha;
+
+  public Conta(ContaDTO contaDTO) {
+    this.titular = contaDTO.getTitular();
+    this.valor = contaDTO.getValor();
+    this.senha = contaDTO.getSenha();
+  }
 }
