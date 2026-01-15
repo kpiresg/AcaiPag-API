@@ -1,8 +1,8 @@
 package com.lk.AcaiPag.API.dto;
 
-import com.lk.AcaiPag.API.model.Conta;
 import com.lk.AcaiPag.API.model.Transacao;
-import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +16,9 @@ public class TransacaoDTO {
   private String titularOrigem;
   private Long idDestino;
   private String titularDestino;
+
+  @NotNull
+  @PositiveOrZero
   private BigDecimal valor;
 
   public TransacaoDTO(Transacao transacao) {
