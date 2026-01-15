@@ -30,6 +30,6 @@ public class Transacao {
 
   private BigDecimal valor;
 
-
+  public Transacao(Conta contaOrigem, Conta contaDestino, BigDecimal valor) {}
 
 }
