@@ -34,4 +34,10 @@ public class GlobalHandlerException {
 
     return new ResponseEntity<>(erros, HttpStatus.BAD_REQUEST);
   }
+
+  @ExceptionHandler(SaldoInsuficienteException.class)
+  public ResponseEntity<String> handlerSaldoInsuficiente(SaldoInsuficienteException e) {
+    String message = e.getMessage();
+    return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+  }
 }
