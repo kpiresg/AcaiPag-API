@@ -9,6 +9,7 @@ import com.lk.AcaiPag.API.repository.TransacaoRepository;
 import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TransacaoService {
@@ -18,6 +19,7 @@ public class TransacaoService {
   @Autowired
   private ContaRepository contaRepository;
 
+  @Transactional
   public Transacao realizarTransacao(Long idOrigem, Long idDestino, BigDecimal valor) {
     Conta contaOrigem = contaRepository.findById(idOrigem)
         .orElseThrow(() -> new ContaNotFoundException("Conta de Origem não encontrada"));
@@ -31,7 +33,7 @@ public class TransacaoService {
       contaOrigem.setValor(contaOrigem.getValor().subtract(valor));
       contaDestino.setValor(contaDestino.getValor().add(valor));
 
-      Transacao transacao = new Transacao(contaOrigem, contaDestino, valor)
+      Transacao transacao = new Transacao(contaOrigem, contaDestino, valor);
       return transacaoRepository.save(transacao);
     }
   }

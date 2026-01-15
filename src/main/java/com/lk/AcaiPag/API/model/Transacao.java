@@ -30,6 +30,10 @@ public class Transacao {
 
   private BigDecimal valor;
 
-  public Transacao(Conta contaOrigem, Conta contaDestino, BigDecimal valor) {}
+  public Transacao(Conta contaOrigem, Conta contaDestino, BigDecimal valor) {
+    this.contaOrigem = contaOrigem;
+    this.contaDestino = contaDestino;
+    this.valor = valor;
+  }
 
 }
