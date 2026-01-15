@@ -1,5 +1,6 @@
 package com.lk.AcaiPag.API.service;
 
+import com.lk.AcaiPag.API.dto.TransacaoDTO;
 import com.lk.AcaiPag.API.exception.ContaNotFoundException;
 import com.lk.AcaiPag.API.exception.SaldoInsuficienteException;
 import com.lk.AcaiPag.API.model.Conta;
@@ -20,7 +21,7 @@ public class TransacaoService {
   private ContaRepository contaRepository;
 
   @Transactional
-  public Transacao realizarTransacao(Long idOrigem, Long idDestino, BigDecimal valor) {
+  public TransacaoDTO realizarTransacao(Long idOrigem, Long idDestino, BigDecimal valor) {
     Conta contaOrigem = contaRepository.findById(idOrigem)
         .orElseThrow(() -> new ContaNotFoundException("Conta de Origem não encontrada"));
 
@@ -34,7 +35,9 @@ public class TransacaoService {
       contaDestino.setValor(contaDestino.getValor().add(valor));
 
       Transacao transacao = new Transacao(contaOrigem, contaDestino, valor);
-      return transacaoRepository.save(transacao);
+      TransacaoDTO transacaoDto = new TransacaoDTO(transacao);
+      transacaoRepository.save(transacao);
+      return transacaoDto;
     }
   }
 

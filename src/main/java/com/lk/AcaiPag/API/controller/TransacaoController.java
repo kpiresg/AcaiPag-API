@@ -1,5 +1,6 @@
 package com.lk.AcaiPag.API.controller;
 
+import com.lk.AcaiPag.API.dto.TransacaoDTO;
 import com.lk.AcaiPag.API.model.Transacao;
 import com.lk.AcaiPag.API.repository.TransacaoRepository;
 import com.lk.AcaiPag.API.service.TransacaoService;
@@ -20,11 +21,11 @@ public class TransacaoController {
   private TransacaoService transacaoService;
 
   @PostMapping("/realizarTransacao/{idOrigem}/{idDestino}/{valor}")
-  public ResponseEntity<Transacao> realizarTransacao(
+  public ResponseEntity<TransacaoDTO> realizarTransacao(
       @PathVariable Long idOrigem,
       @PathVariable Long idDestino,
       @PathVariable BigDecimal valor) {
-    Transacao transacao = transacaoService.realizarTransacao(idOrigem, idDestino, valor);
-    return new ResponseEntity<>(transacao, HttpStatus.OK);
+    TransacaoDTO transacaoDto = transacaoService.realizarTransacao(idOrigem, idDestino, valor);
+    return new ResponseEntity<>(transacaoDto, HttpStatus.OK);
   }
 }
