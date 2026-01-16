@@ -1,4 +1,4 @@
-# AcaiPag-API 💳 🏗️
+# AcaiPag-API
 
 [![Status](https://img.shields.io/badge/status-under%20development-orange)](https://github.com/kpiresg/AcaiPag-API)
 [![Java](https://img.shields.io/badge/java-17-blue)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
@@ -6,7 +6,7 @@
 
 A microservice-based payment API designed for game economy integration. This project focuses on managing accounts and executing secure transactions between players.
 
-## 🚀 Features (In Progress)
+## Features (In Progress)
 
 - **Account Management**: Create, read, update, and delete (CRUD) player accounts.
 - **Transaction System**: Real-time balance transfers between accounts with validation.
@@ -14,7 +14,7 @@ A microservice-based payment API designed for game economy integration. This pro
 - **Validation**: Data integrity enforced via `Jakarta Validation`.
 - **In-Memory Database**: Fast development and testing with H2 Database.
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Java 17**
 - **Spring Boot 4** (Web MVC, Data JPA)
@@ -22,7 +22,7 @@ A microservice-based payment API designed for game economy integration. This pro
 - **H2 Database** (Development database)
 - **Maven** (Dependency management)
 
-## 📋 API Endpoints
+## API Endpoints
 
 ### Accounts (`/conta`)
 - `POST /add` - Register a new account.
@@ -34,7 +34,7 @@ A microservice-based payment API designed for game economy integration. This pro
 ### Transactions (`/transacao`)
 - `POST /realizarTransacao/{idOrigem}/{idDestino}` - Transfer funds between players.
 
-## 🔧 How to run
+## How to run
 
 1. Clone the repository:
    ```bash
