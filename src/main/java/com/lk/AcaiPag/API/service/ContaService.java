@@ -26,11 +26,9 @@ public class ContaService {
   }
 
   public ContaDTO getContaById(Long id) {
-    Conta conta = this.contaRepository.findById(id)
+    return contaRepository.findById(id)
+        .map(conta -> new ContaDTO(conta))
         .orElseThrow(() -> new ContaNotFoundException());
-
-    ContaDTO contaDTO = new ContaDTO(conta);
-    return contaDTO;
   }
 
   public List<ContaDTO> getAll() {
