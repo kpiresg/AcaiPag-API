@@ -34,12 +34,10 @@ public class ContaService {
   }
 
   public List<ContaDTO> getAll() {
-    List <ContaDTO> contaDTOList = new ArrayList<>();
-    for(Conta conta : this.contaRepository.findAll()) {
-      ContaDTO contaDTO = new ContaDTO(conta);
-      contaDTOList.add(contaDTO);
-    }
-    return contaDTOList;
+    return contaRepository.findAll()
+        .stream()
+        .map(conta -> new ContaDTO(conta))
+        .toList();
   }
 
   @Transactional
