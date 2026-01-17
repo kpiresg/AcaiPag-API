@@ -5,17 +5,22 @@ import com.lk.AcaiPag.API.exception.ContaNotFoundException;
 import com.lk.AcaiPag.API.model.Conta;
 import com.lk.AcaiPag.API.repository.ContaRepository;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Builder
 public class ContaService {
 
+  private final ContaRepository contaRepository;
+
   @Autowired
-  private ContaRepository contaRepository;
+  public ContaService(ContaRepository contaRepository) {
+    this.contaRepository = contaRepository;
+  }
 
   @Transactional
   public ContaDTO addConta(ContaDTO contaDto) {
