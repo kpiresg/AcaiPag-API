@@ -25,8 +25,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/conta")
 public class ContaController {
 
+  private final ContaService contaService;
+
   @Autowired
-  private ContaService contaService;
+  public ContaController(ContaService contaService) {
+    this.contaService = contaService;
+  }
 
   @PostMapping("/add")
   public ResponseEntity<ContaDTO> addConta(@RequestBody @Valid ContaDTO newContaDto) {

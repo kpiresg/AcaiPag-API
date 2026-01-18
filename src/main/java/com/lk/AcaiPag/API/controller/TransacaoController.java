@@ -17,8 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/transacao")
 public class TransacaoController {
 
-  @Autowired
   private TransacaoService transacaoService;
+
+  @Autowired
+  public TransacaoController(TransacaoService transacaoService) {
+    this.transacaoService = transacaoService;
+  }
 
   @PostMapping("/realizarTransacao/{idOrigem}/{idDestino}")
   public ResponseEntity<TransacaoDTO> realizarTransacao(
