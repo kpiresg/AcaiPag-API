@@ -35,4 +35,11 @@ public class Conta {
     this.valor = contaDTO.getValor();
     this.senha = contaDTO.getSenha();
   }
+
+  public Conta(Long id, String titular, BigDecimal valor, String senha) {
+    this.id = id;
+    this.senha = senha;
+    this.titular = titular;
+    this.valor = valor;
+  }
 }
