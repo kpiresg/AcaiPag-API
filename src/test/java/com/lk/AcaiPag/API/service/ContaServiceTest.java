@@ -27,7 +27,6 @@ class ContaServiceTest {
   @Test
   @DisplayName("Teste se esta criando conta")
   void testVerificarSeEstaCriandoConta() {
-
     ContaDTO contaDTO = new ContaDTO(
         "Kauan",
         BigDecimal.valueOf(100),
@@ -43,5 +42,25 @@ class ContaServiceTest {
     assertEquals(1l, resultado.getId());
     assertEquals("Kauan", resultado.getTitular());
     Mockito.verify(contaRepository, Mockito.times(1)).save(Mockito.any(Conta.class));
+  }
+
+  @Test
+  @DisplayName("Teste achar conta pelo id")
+  void testVerificarContaPeloId() {
+    Conta conta = new Conta(
+        1l,
+        "Kauan",
+        BigDecimal.valueOf(10),
+        "123");
+
+    Mockito.when(contaRepository.findById(Mockito.anyLong()))
+        .thenReturn(Optional.of(conta));
+
+    ContaDTO contaDTO = contaService.getContaById(1l);
+
+    assertNotNull(contaDTO);
+    assertEquals(1l, contaDTO.getId());
+    Mockito.verify(contaRepository, Mockito.times(1)).findById(Mockito.anyLong());
+
   }
 }
