@@ -35,8 +35,8 @@ public class TransacaoService {
       contaDestino.setValor(contaDestino.getValor().add(valor));
 
       Transacao transacao = new Transacao(contaOrigem, contaDestino, valor);
-      TransacaoDTO transacaoDto = new TransacaoDTO(transacao);
-      transacaoRepository.save(transacao);
+      Transacao transacaoSalva = transacaoRepository.save(transacao);
+      TransacaoDTO transacaoDto = new TransacaoDTO(transacaoSalva);
       return transacaoDto;
     }
   }

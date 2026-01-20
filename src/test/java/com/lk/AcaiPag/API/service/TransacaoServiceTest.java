@@ -68,7 +68,10 @@ class TransacaoServiceTest {
     Mockito.when(contaRepository.findById(1l)).thenReturn(Optional.of(conta1));
     Mockito.when(contaRepository.findById(2l)).thenReturn(Optional.of(conta2));
 
-    transacaoService.realizarTransacao(1l,2l,BigDecimal.valueOf(50));
+    transacaoService.realizarTransacao(
+        1l,
+        2l,
+        BigDecimal.valueOf(50));
 
     assertNotNull(conta1.getValor());
     assertEquals(BigDecimal.valueOf(50), conta1.getValor());
@@ -80,12 +83,25 @@ class TransacaoServiceTest {
   void testVerificarSeGerouComprovante() {
     Conta conta1 = new Conta(1l, "Kauan", BigDecimal.valueOf(100), "123");
     Conta conta2 = new Conta(2l, "Laura", BigDecimal.valueOf(200), "321");
-    Transacao transacao = new Transacao(conta1, conta2, BigDecimal.valueOf(100));
+    Transacao novaTransacao = new Transacao(conta1, conta2, BigDecimal.valueOf(50));
+    novaTransacao.setId(5l);
 
-    Mockito.when(transacaoRepository.save(Mockito.any(Transacao.class))).thenReturn(transacao);
-    Transacao resultado = transacaoRepository.save(transacao);
+    Mockito.when(transacaoRepository.save(Mockito.any(Transacao.class))).thenReturn(novaTransacao);
 
-    assertEquals(resultado, transacao);
+    Mockito.when(contaRepository.findById(1l)).thenReturn(Optional.of(conta1));
+    Mockito.when(contaRepository.findById(2l)).thenReturn(Optional.of(conta2));
+
+    TransacaoDTO resultadoDto = transacaoService.realizarTransacao(
+        1l,
+        2l,
+        BigDecimal.valueOf(50));
+
+    assertEquals(BigDecimal.valueOf(50), conta1.getValor());
+    assertEquals(BigDecimal.valueOf(250), conta2.getValor());
+
+    assertNotNull(resultadoDto);
+    assertEquals(novaTransacao.getId(), resultadoDto.getId());
+
+    Mockito.verify(transacaoRepository, Mockito.times(1)).save(Mockito.any(Transacao.class));
   }
-
 }
