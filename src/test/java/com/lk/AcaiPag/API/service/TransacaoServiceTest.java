@@ -26,6 +26,9 @@ class TransacaoServiceTest {
   @Mock
   ContaRepository contaRepository;
 
+  @Mock
+  TransacaoRepository transacaoRepository;
+
   @Test
   @DisplayName("Teste de Conta nao Encontrada")
   void testeDeContaNaoEncontradaException() {
@@ -54,6 +57,21 @@ class TransacaoServiceTest {
             1l,
             2l,
             BigDecimal.valueOf(2)));
+  }
+
+  @Test
+  @DisplayName("Teste atualizar valor ao realizar transacao")
+  void testVerificarSeTransacaoOcorreuComSucesso() {
+    Conta conta1 = new Conta(1l, "Kauan", BigDecimal.valueOf(100), "123");
+    Conta conta2 = new Conta(2l, "Laura", BigDecimal.valueOf(200), "321");
+
+    Mockito.when(contaRepository.findById(1l)).thenReturn(Optional.of(conta1));
+    Mockito.when(contaRepository.findById(2l)).thenReturn(Optional.of(conta2));
+
+    transacaoService.realizarTransacao(1l,2l,BigDecimal.valueOf(50));
+
+    assertEquals(BigDecimal.valueOf(50), conta1.getValor());
+    assertEquals(BigDecimal.valueOf(250), conta2.getValor());
   }
 
 }
