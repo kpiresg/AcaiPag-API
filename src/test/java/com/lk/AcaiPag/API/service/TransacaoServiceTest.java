@@ -67,6 +67,11 @@ class TransacaoServiceTest {
     Conta conta2 = new Conta(2l, "Laura", BigDecimal.valueOf(200), "321");
     Mockito.when(contaRepository.findById(1l)).thenReturn(Optional.of(conta1));
     Mockito.when(contaRepository.findById(2l)).thenReturn(Optional.of(conta2));
+    Mockito.when(transacaoRepository.save(Mockito.any(Transacao.class)))
+        .thenReturn(new Transacao(
+            conta1,
+            conta2,
+            new BigDecimal(50)));
 
     transacaoService.realizarTransacao(
         1l,
