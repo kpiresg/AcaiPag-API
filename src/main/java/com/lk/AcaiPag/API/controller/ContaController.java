@@ -2,13 +2,10 @@ package com.lk.AcaiPag.API.controller;
 
 import com.lk.AcaiPag.API.dto.ContaDTO;
 import com.lk.AcaiPag.API.dto.UpdateSaldoDTO;
-import com.lk.AcaiPag.API.model.Conta;
 import com.lk.AcaiPag.API.service.ContaService;
 import jakarta.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
