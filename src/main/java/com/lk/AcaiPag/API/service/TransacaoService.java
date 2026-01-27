@@ -15,10 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class TransacaoService {
 
+  private final TransacaoRepository transacaoRepository;
+
+  private final ContaRepository contaRepository;
+
   @Autowired
-  private TransacaoRepository transacaoRepository;
-  @Autowired
-  private ContaRepository contaRepository;
+  public TransacaoService(TransacaoRepository transacaoRepository, ContaRepository contaRepository) {
+    this.transacaoRepository = transacaoRepository;
+    this.contaRepository = contaRepository;
+  }
 
   @Transactional
   public TransacaoDTO realizarTransacao(Long idOrigem, Long idDestino, BigDecimal valor) {
