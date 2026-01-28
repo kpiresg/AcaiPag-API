@@ -40,4 +40,10 @@ public class GlobalHandlerException {
     String message = e.getMessage();
     return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
   }
+
+  @ExceptionHandler(ContaEqualsException.class)
+  public ResponseEntity<String> handlerContaEquals(ContaEqualsException e) {
+    String message = e.getMessage();
+    return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+  }
 }

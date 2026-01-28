@@ -3,6 +3,7 @@ package com.lk.AcaiPag.API.service;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.lk.AcaiPag.API.dto.TransacaoDTO;
+import com.lk.AcaiPag.API.exception.ContaEqualsException;
 import com.lk.AcaiPag.API.exception.ContaNotFoundException;
 import com.lk.AcaiPag.API.exception.SaldoInsuficienteException;
 import com.lk.AcaiPag.API.model.Conta;
@@ -108,5 +109,20 @@ class TransacaoServiceTest {
     assertEquals(novaTransacao.getId(), resultadoDto.getId());
 
     Mockito.verify(transacaoRepository, Mockito.times(1)).save(Mockito.any(Transacao.class));
+  }
+
+  @Test
+  @DisplayName("Teste Conta origem e destino igual Exception")
+  void verificarSeLancouExceptionParaMesmaConta() {
+    Conta contaOrigem  = new Conta(1l, "Kauan", BigDecimal.valueOf(100), "123");
+    Mockito.when(contaRepository.findById(1l)).thenReturn(Optional.of(contaOrigem));
+
+    assertThrows(ContaEqualsException.class, () -> {
+      transacaoService.realizarTransacao(1l, 1l, new BigDecimal("100"));
+    });
+
+    Mockito.verify(contaRepository,
+        Mockito.times(2))
+        .findById(Mockito.anyLong());
   }
 }

@@ -1,6 +1,7 @@
 package com.lk.AcaiPag.API.service;
 
 import com.lk.AcaiPag.API.dto.TransacaoDTO;
+import com.lk.AcaiPag.API.exception.ContaEqualsException;
 import com.lk.AcaiPag.API.exception.ContaNotFoundException;
 import com.lk.AcaiPag.API.exception.SaldoInsuficienteException;
 import com.lk.AcaiPag.API.model.Conta;
@@ -35,14 +36,16 @@ public class TransacaoService {
 
     if (valor.compareTo(contaOrigem.getValor()) > 0) {
       throw new SaldoInsuficienteException();
+    } else if(contaOrigem.getId().equals(contaDestino.getId())) {
+        throw new ContaEqualsException();
     } else {
-      contaOrigem.setValor(contaOrigem.getValor().subtract(valor));
-      contaDestino.setValor(contaDestino.getValor().add(valor));
+        contaOrigem.setValor(contaOrigem.getValor().subtract(valor));
+        contaDestino.setValor(contaDestino.getValor().add(valor));
 
-      Transacao transacao = new Transacao(contaOrigem, contaDestino, valor);
-      Transacao transacaoSalva = transacaoRepository.save(transacao);
-      TransacaoDTO transacaoDto = new TransacaoDTO(transacaoSalva);
-      return transacaoDto;
+        Transacao transacao = new Transacao(contaOrigem, contaDestino, valor);
+        Transacao transacaoSalva = transacaoRepository.save(transacao);
+        TransacaoDTO transacaoDto = new TransacaoDTO(transacaoSalva);
+        return transacaoDto;
     }
   }
 
