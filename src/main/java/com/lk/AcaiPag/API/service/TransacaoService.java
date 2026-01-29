@@ -4,11 +4,13 @@ import com.lk.AcaiPag.API.dto.TransacaoDTO;
 import com.lk.AcaiPag.API.exception.ContaEqualsException;
 import com.lk.AcaiPag.API.exception.ContaNotFoundException;
 import com.lk.AcaiPag.API.exception.SaldoInsuficienteException;
+import com.lk.AcaiPag.API.exception.TransacaoNotFoundException;
 import com.lk.AcaiPag.API.model.Conta;
 import com.lk.AcaiPag.API.model.Transacao;
 import com.lk.AcaiPag.API.repository.ContaRepository;
 import com.lk.AcaiPag.API.repository.TransacaoRepository;
 import java.math.BigDecimal;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,6 +49,15 @@ public class TransacaoService {
         TransacaoDTO transacaoDto = new TransacaoDTO(transacaoSalva);
         return transacaoDto;
     }
+  }
+
+  public TransacaoDTO consultarTransacao(Long id) {
+    Optional<Transacao> transacao = Optional.of(transacaoRepository.findById(id)
+        .orElseThrow(() -> new TransacaoNotFoundException()));
+
+    TransacaoDTO transacaoDto = new TransacaoDTO(transacao.get());
+
+    return transacaoDto;
   }
 
 }

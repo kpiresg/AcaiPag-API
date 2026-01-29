@@ -1,5 +1,6 @@
 package com.lk.AcaiPag.API.exception;
 
+import com.lk.AcaiPag.API.dto.TransacaoDTO;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
@@ -45,5 +46,11 @@ public class GlobalHandlerException {
   public ResponseEntity<String> handlerContaEquals(ContaEqualsException e) {
     String message = e.getMessage();
     return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(TransacaoNotFoundException.class)
+  public ResponseEntity<String> handlerTransacaoNotFound(TransacaoNotFoundException e) {
+    String message = e.getMessage();
+    return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
   }
 }

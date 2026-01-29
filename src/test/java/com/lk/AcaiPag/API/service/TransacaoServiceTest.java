@@ -6,6 +6,7 @@ import com.lk.AcaiPag.API.dto.TransacaoDTO;
 import com.lk.AcaiPag.API.exception.ContaEqualsException;
 import com.lk.AcaiPag.API.exception.ContaNotFoundException;
 import com.lk.AcaiPag.API.exception.SaldoInsuficienteException;
+import com.lk.AcaiPag.API.exception.TransacaoNotFoundException;
 import com.lk.AcaiPag.API.model.Conta;
 import com.lk.AcaiPag.API.model.Transacao;
 import com.lk.AcaiPag.API.repository.ContaRepository;
@@ -123,6 +124,20 @@ class TransacaoServiceTest {
 
     Mockito.verify(contaRepository,
         Mockito.times(2))
+        .findById(Mockito.anyLong());
+  }
+
+  @Test
+  @DisplayName("Teste lança TransacaoNotFound")
+  void verificarSeLancouTransacaoNotFound() {
+    Mockito.when(transacaoRepository.findById(1l)).thenReturn(Optional.empty());
+
+    assertThrows(TransacaoNotFoundException.class, () -> {
+      transacaoService.consultarTransacao(1l);
+    });
+
+    Mockito.verify(transacaoRepository,
+        Mockito.times(1))
         .findById(Mockito.anyLong());
   }
 }

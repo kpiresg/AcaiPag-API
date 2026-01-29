@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,5 +33,11 @@ public class TransacaoController {
     BigDecimal valorFinal = valor.getValor();
     TransacaoDTO transacaoDto = transacaoService.realizarTransacao(idOrigem, idDestino, valorFinal);
     return new ResponseEntity<>(transacaoDto, HttpStatus.OK);
+  }
+
+  @GetMapping("/consultarTransacao/{id}")
+  public ResponseEntity<TransacaoDTO> consultarTransacao(@PathVariable Long id) {
+    TransacaoDTO transacaoDTO = transacaoService.consultarTransacao(id);
+    return new ResponseEntity<>(transacaoDTO, HttpStatus.OK);
   }
 }
